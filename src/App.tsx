@@ -1,6 +1,6 @@
 import "./App.css";
 import { useRef, useState } from "react";
-import MiniSearch, { Suggestion } from "minisearch";
+import MiniSearch from "minisearch";
 import { Data } from "./Data";
 
 function isBlank(str: string) {
@@ -23,13 +23,11 @@ function summarize(text: string, size: number) {
   return text.slice(0, size);
 }
 
-const searchLabel = "جستجو";
 const placeholder =
   "مثلا : سنا ، سپاس ، میثاق ، جاری طلایی ، سحاب ، ساتنا ، پایا ، پایانه فروش ، بلندمدت یک ساله ، بلند مدت دو ساله ، بلند مدت سه ساله";
 
 function App() {
   const [searchText, setSearchText] = useState("");
-  const [autoComplete, setAutoComplete] = useState<Suggestion[]>([]);
   const searchInput = useRef<HTMLInputElement>(null);
 
   // Create a search engine that indexes the 'title' and 'text' fields for
@@ -50,62 +48,54 @@ function App() {
   // Search for documents:
   let results = miniSearch.search(searchText);
 
-  const searchAutoHandle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAutoComplete(
-      miniSearch.autoSuggest(event.target.value, {
-        boost: { title: 5, tags: 3, text: 1 },
-        fuzzy: 0.15,
-      })
-    );
-  };
-
   return (
-    <div key="MainContainer" className="MainContainer">
-      <p id="SearchLabel">{searchLabel}</p>
-      <input
-        id="SearchInput"
-        type="text"
-        ref={searchInput}
-        defaultValue={searchText}
-        placeholder={placeholder}
-        onKeyDown={(event) => {
-          if (event.key === "Enter")
-            if (
-              !searchInput.current?.value ||
-              isBlank(searchInput.current?.value)
-            )
-              setSearchText("");
-            else {
-              setSearchText(searchInput.current?.value);
-              setAutoComplete([]);
-            }
-        }}
-        onChange={(event) => searchAutoHandle(event)}
-      />
-      {autoComplete.length != 0 && (
-        <div key="AutoCompleteContainer" className="AutoCompleteContainer">
-          {autoComplete.map((item) => (
-            <span>{item.suggestion}</span>
-          ))}
-        </div>
-      )}
+    <main key="MainContainer" className="MainContainer">
+      <div key="SearchBarContainer" className="SearchBarContainer">
+        <p id="SearchLabel">جستجو</p>
+        <input
+          id="SearchInput"
+          type="text"
+          ref={searchInput}
+          defaultValue={searchText}
+          placeholder={placeholder}
+          onKeyDown={(event) => {
+            if (event.key === "Enter")
+              if (
+                !searchInput.current?.value ||
+                isBlank(searchInput.current?.value)
+              )
+                setSearchText("");
+              else {
+                setSearchText(searchInput.current?.value);
+              }
+          }}
+        />
+      </div>
+      <div key="SearchBarSeperator" id="SearchBarSeperator" />
       <div key="ResultContainer" className="ResultContainer">
         {results.map(
           (result) =>
             result.score > 1 && (
-              <div
-                key={"ResultItemCard" + result.id}
-                className="Card ResultItemCard"
-              >
+              <div key={"ResultItem" + result.id} className="ResultItem">
                 <h4 className="resultTitle">{result.title}</h4>
                 <p className="resultText">
-                  {summarize(result.text, 100) + " ..."}
+                  {summarize(result.text, 256) + " ... "}
+                  <span
+                    className="ShowContent"
+                    onClick={() => alert(result.text)}
+                  >
+                    مشاهده کامل محتوا
+                  </span>
                 </p>
+                <div
+                  key={"ResultItemSeperator" + result.id}
+                  className="ResultItemSeperator"
+                />
               </div>
             )
         )}
       </div>
-    </div>
+    </main>
   );
 }
 
