@@ -1,6 +1,7 @@
 
-.SearchBarFlex {
+.MainContainer {
   display: flex;
+  flex-direction: column;
   margin-left: auto;
   margin-right: auto;
   justify-content: center;
@@ -12,7 +13,7 @@
   font-size: x-large;
 }
 
-.SearchBarFlex #SearchInput{
+.MainContainer #SearchInput{
   padding: 1rem 1rem;
   font-family: mitra;
   font-size: large;
@@ -24,25 +25,25 @@
   transition: all 300ms ease-in-out;
 }
 
-.SearchBarFlex #SearchInput:focus {
+.MainContainer #SearchInput:focus {
   border-bottom: 3px solid rgb(0, 158, 66);
   outline: none;
   width: 65%;
 }
 
-.AutoCompleteFlex{
+.AutoCompleteContainer {
+  display: flex;
+  flex-direction: column;
   background-color: white;
   font-family: mitra;
   font-size: large;
   width: 35%;
   margin:auto;
-  margin-top: -1.5% !important;
   padding: 1%;
 }
 
-.ResultGrid{
-  margin-top: 3%;
-  align-items: center;
+.ResultContainer{
+  margin: 3%;
 }
 
 
@@ -55,10 +56,6 @@
    font-family: mitra;
    padding-right: 2%;
    font-size: larger;
-   overflow: scroll;
    border: none;
 }
 
-.rt-TextFieldRoot{
-  width: 70% !important;
-}

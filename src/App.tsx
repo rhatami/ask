@@ -17,6 +17,16 @@ function stripHTML2(html: string) {
   return html.replace(/<[^>]*>?/gm, "");
 }
 
+function summarize(text: string, size: number) {
+  size = size - 1; // 0 index
+  if (text.length <= size) return text;
+  return text.slice(0, size);
+}
+
+const searchLabel = "جستجو";
+const placeholder =
+  "مثلا : سنا ، سپاس ، میثاق ، جاری طلایی ، سحاب ، ساتنا ، پایا ، پایانه فروش ، بلندمدت یک ساله ، بلند مدت دو ساله ، بلند مدت سه ساله";
+
 function App() {
   const [searchText, setSearchText] = useState("");
   const [autoComplete, setAutoComplete] = useState<Suggestion[]>([]);
@@ -50,14 +60,14 @@ function App() {
   };
 
   return (
-    <div key="SearchBarFlex" className="SearchBarFlex">
-      <p id="SearchLabel">جستجو : </p>
+    <div key="MainContainer" className="MainContainer">
+      <p id="SearchLabel">{searchLabel}</p>
       <input
         id="SearchInput"
         type="text"
         ref={searchInput}
         defaultValue={searchText}
-        placeholder="مثلا : سنا ، سپاس ، میثاق ، جاری طلایی ، سحاب ، ساتنا ، پایا ، پایانه فروش ، بلندمدت یک ساله ، بلند مدت دو ساله ، بلند مدت سه ساله"
+        placeholder={placeholder}
         onKeyDown={(event) => {
           if (event.key === "Enter")
             if (
@@ -72,16 +82,14 @@ function App() {
         }}
         onChange={(event) => searchAutoHandle(event)}
       />
-      <div
-        key="AutoCompleteFlex"
-        className="AutoCompleteFlex"
-        // display={autoComplete.length == 0 ? "none" : "inline-flex"}
-      >
-        {autoComplete.map((item) => (
-          <span>{item.suggestion}</span>
-        ))}
-      </div>
-      <div key="ResultGrid" className="ResultGrid">
+      {autoComplete.length != 0 && (
+        <div key="AutoCompleteContainer" className="AutoCompleteContainer">
+          {autoComplete.map((item) => (
+            <span>{item.suggestion}</span>
+          ))}
+        </div>
+      )}
+      <div key="ResultContainer" className="ResultContainer">
         {results.map(
           (result) =>
             result.score > 1 && (
@@ -90,9 +98,9 @@ function App() {
                 className="Card ResultItemCard"
               >
                 <h4 className="resultTitle">{result.title}</h4>
-                <textarea cols={50} rows={5} className="resultText" disabled>
-                  {result.text}
-                </textarea>
+                <p className="resultText">
+                  {summarize(result.text, 100) + " ..."}
+                </p>
               </div>
             )
         )}
