@@ -25,7 +25,9 @@ export function popupContent(data: SearchResult) {
   return (
     <div className="PopoupContainer" id={"PopoupContainer" + data.id}>
       <h4 className="PopupTitle">{data.title}</h4>
-      <p className="PopupBody">{data.text}</p>
+      <p className="PopupBody" key={"PopupBody" + data.id}>
+        {data.text}
+      </p>
       {data.bakhshname ? (
         <p className="PopupBakshname">{data.bakhshname}</p>
       ) : null}

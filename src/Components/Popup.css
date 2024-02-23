@@ -9,7 +9,7 @@
     border: 1px solid #dfe1e5;
     border-radius: 10px;
   }
-  
+
 .ShowContent{
   font-family: mitra;
   font-size:large;
@@ -24,10 +24,17 @@ span:hover{
 .PopoupContainer{
   padding-right: 3%;
   padding-bottom: 2%;
-  font-family: mitra;
-  font-size: larger;
 }
 
 .PopupTitle{
   font-family: yekan;
+}
+
+.PopupBody , .PopupBakshname {
+  font-family: mitra;
+  font-size: larger;
+}
+
+.PopupBakshname{
+  font-style: italic;
 }

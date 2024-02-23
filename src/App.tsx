@@ -1,7 +1,7 @@
 import "./App.css";
 import { useRef, useState } from "react";
 import MiniSearch from "minisearch";
-import { DataArray } from "./Data";
+import { DataArray } from "./Components/Data";
 import Popup from "./Components/Popup";
 import { isBlank, popupContent, summarize } from "./Components/Functions";
 

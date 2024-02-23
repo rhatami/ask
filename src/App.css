@@ -63,7 +63,9 @@
   margin:auto;
   font-family: mitra;
   font-size: larger;
+  padding-right: 3%;
 }
+
 
 #SearchBarSeperator{
   box-shadow: 0 1px 1px rgba(32,33,36,.28);
