@@ -1,0 +1,33 @@
+.popup-content{
+    position: absolute !important;
+    pointer-events: auto;
+    top: 25%;
+    right: 10%;
+    width: 80% !important;
+    height: auto !important;
+    background:rgb(255, 255, 255) !important;
+    border: 1px solid #dfe1e5;
+    border-radius: 10px;
+  }
+  
+.ShowContent{
+  font-family: mitra;
+  font-size:large;
+  font-weight: bold;
+  color: blue;
+}
+
+span:hover{
+  cursor: pointer;
+}
+
+.PopoupContainer{
+  padding-right: 3%;
+  padding-bottom: 2%;
+  font-family: mitra;
+  font-size: larger;
+}
+
+.PopupTitle{
+  font-family: yekan;
+}

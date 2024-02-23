@@ -1,29 +1,11 @@
 import "./App.css";
 import { useRef, useState } from "react";
 import MiniSearch from "minisearch";
-import { Data } from "./Data";
+import { DataArray } from "./Data";
+import Popup from "./Components/Popup";
+import { isBlank, popupContent, summarize } from "./Components/Functions";
 
-function isBlank(str: string) {
-  return !str || /^\s*$/.test(str);
-}
-
-function stripHTML(html: string) {
-  let tmp = document.createElement("DIV");
-  tmp.innerHTML = html;
-  return tmp.textContent || tmp.innerText || "";
-}
-
-function stripHTML2(html: string) {
-  return html.replace(/<[^>]*>?/gm, "");
-}
-
-function summarize(text: string, size: number) {
-  size = size - 1; // 0 index
-  if (text.length <= size) return text;
-  return text.slice(0, size);
-}
-
-const placeholder =
+const helperText =
   "مثلا : سنا ، سپاس ، میثاق ، جاری طلایی ، سحاب ، ساتنا ، پایا ، پایانه فروش ، بلندمدت یک ساله ، بلند مدت دو ساله ، بلند مدت سه ساله";
 
 function App() {
@@ -35,7 +17,7 @@ function App() {
   // id field, that is always stored and returned)
   const miniSearch = new MiniSearch({
     fields: ["title", "text", "tags"],
-    storeFields: ["title", "text"],
+    storeFields: ["title", "text", "bakhshname"],
     searchOptions: {
       boost: { tags: 3, title: 2, text: 1 },
       fuzzy: 0.25,
@@ -43,7 +25,7 @@ function App() {
   });
 
   // Add documents to the index
-  miniSearch.addAll(Data);
+  miniSearch.addAll(DataArray);
 
   // Search for documents:
   let results = miniSearch.search(searchText);
@@ -57,7 +39,7 @@ function App() {
           type="text"
           ref={searchInput}
           defaultValue={searchText}
-          placeholder={placeholder}
+          placeholder="لطفا عبارت مورد نظر را وارد کرده و سپس کلید Enter را فشار دهید"
           onKeyDown={(event) => {
             if (event.key === "Enter")
               if (
@@ -71,6 +53,13 @@ function App() {
           }}
         />
       </div>
+      {results.length == 0 ? (
+        <div id="helperDiv" key="helperDiv">
+          <p id="helperText" key="helperText">
+            {helperText}
+          </p>
+        </div>
+      ) : null}
       <div key="SearchBarSeperator" id="SearchBarSeperator" />
       <div key="ResultContainer" className="ResultContainer">
         {results.map(
@@ -80,12 +69,7 @@ function App() {
                 <h4 className="resultTitle">{result.title}</h4>
                 <p className="resultText">
                   {summarize(result.text, 256) + " ... "}
-                  <span
-                    className="ShowContent"
-                    onClick={() => alert(result.text)}
-                  >
-                    مشاهده کامل محتوا
-                  </span>
+                  <Popup>{popupContent(result)}</Popup>
                 </p>
                 <div
                   key={"ResultItemSeperator" + result.id}

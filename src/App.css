@@ -59,6 +59,12 @@
   padding: 1%;
 }
 
+#helperDiv{
+  margin:auto;
+  font-family: mitra;
+  font-size: larger;
+}
+
 #SearchBarSeperator{
   box-shadow: 0 1px 1px rgba(32,33,36,.28);
   padding-top: 2%;
@@ -82,11 +88,6 @@
    padding-right: 2%;
    font-size: larger;
    border: none;
-}
-
-.ShowContent{
-  font-weight: bold;
-  color: blue;
 }
 
 .ResultItemSeperator {
