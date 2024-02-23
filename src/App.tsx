@@ -3,10 +3,18 @@ import { useRef, useState } from "react";
 import MiniSearch from "minisearch";
 import { DataArray } from "./Components/Data";
 import Popup from "./Components/Popup";
-import { isBlank, popupContent, summarize } from "./Components/Functions";
+import {
+  isBlank,
+  popupContent,
+  splitNewlines,
+  summarize,
+} from "./Components/Functions";
 
-const helperText =
-  "مثلا : سنا ، سپاس ، میثاق ، جاری طلایی ، سحاب ، ساتنا ، پایا ، پایانه فروش ، بلندمدت یک ساله ، بلند مدت دو ساله ، بلند مدت سه ساله";
+const helperText = `عبارت های قابل جستجو :
+طرح های تسهیلاتی مثل : سنا ، سپاس ، میثاق ، تسهیلات ارزان قیمت ، تسهیلات پایانه فروش
+ انتقال وجه مثل : سحاب ، پایا ، پل ، سقف ساتنا
+ سپرده های بلند مدت مثل : بلند مدت یک ساله ، بلند مدت دو ساله ، بلند مدت سه ساله
+ گواهی سپرده ها مثل : گواهی سپرده 3400 32 ، 3401 38 ، گواهی سپرده 30 درصدی ، گواهی سپرده یک ماهه`;
 
 function App() {
   const [searchText, setSearchText] = useState("");
@@ -55,9 +63,11 @@ function App() {
       </div>
       {results.length == 0 ? (
         <div id="helperDiv" key="helperDiv">
-          <p id="helperText" key="helperText">
-            {helperText}
-          </p>
+          <div id="helperText" key="helperText">
+            {splitNewlines(helperText).map((line) => (
+              <p>{line}</p>
+            ))}
+          </div>
         </div>
       ) : null}
       <div key="SearchBarSeperator" id="SearchBarSeperator" />

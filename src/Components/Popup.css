@@ -1,7 +1,7 @@
 .popup-content{
     position: absolute !important;
     pointer-events: auto;
-    top: 25%;
+    top: 5%;
     right: 10%;
     width: 80% !important;
     height: auto !important;
@@ -28,6 +28,7 @@ span:hover{
 
 .PopupTitle{
   font-family: yekan;
+  font-size: larger;
 }
 
 .PopupBody , .PopupBakshname {
@@ -37,4 +38,5 @@ span:hover{
 
 .PopupBakshname{
   font-style: italic;
+  font-weight: bold;
 }

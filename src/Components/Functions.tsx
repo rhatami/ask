@@ -21,13 +21,19 @@ export function summarize(text: string, size: number) {
   return text.slice(0, size);
 }
 
+export function splitNewlines(txt: string) {
+  return txt.split("\n");
+}
+
 export function popupContent(data: SearchResult) {
   return (
     <div className="PopoupContainer" id={"PopoupContainer" + data.id}>
       <h4 className="PopupTitle">{data.title}</h4>
-      <p className="PopupBody" key={"PopupBody" + data.id}>
-        {data.text}
-      </p>
+      <div className="PopupBody" key={"PopupBody" + data.id}>
+        {splitNewlines(data.text).map((line) => (
+          <p>{line}</p>
+        ))}
+      </div>
       {data.bakhshname ? (
         <p className="PopupBakshname">{data.bakhshname}</p>
       ) : null}
