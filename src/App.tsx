@@ -12,9 +12,9 @@ import {
 
 const helperText = `عبارت های قابل جستجو :
 طرح های تسهیلاتی مثل : سنا ، سپاس ، میثاق ، تسهیلات ارزان قیمت ، تسهیلات پایانه فروش
- انتقال وجه مثل : سحاب ، پایا ، پل ، سقف ساتنا
- سپرده های بلند مدت مثل : بلند مدت یک ساله ، بلند مدت دو ساله ، بلند مدت سه ساله
- گواهی سپرده ها مثل : گواهی سپرده 3400 32 ، 3401 38 ، گواهی سپرده 30 درصدی ، گواهی سپرده یک ماهه`;
+ انتقال وجه مثل : سحاب ، پایا ، پل ، سقف ساتنا ، کارمزد پایا ، ساعت چکاوک ، سقف خرید
+ سپرده ها مثل : کوتاه مدت عادی ، کوتاه مدت امید ، بلند مدت یک ساله ، بلند مدت دو ساله ، بلند مدت سه ساله
+ گواهی سپرده ها مثل : گواهی سپرده 3400 32 ، 3401 38 ، گواهی سپرده 30 درصدی ، گواهی سپرده یک ماهه ، گواهی سپرده سررسید بهمن`;
 
 function App() {
   const [searchText, setSearchText] = useState("");
@@ -46,8 +46,9 @@ function App() {
           id="SearchInput"
           type="text"
           ref={searchInput}
-          defaultValue={searchText}
-          placeholder="لطفا عبارت مورد نظر را وارد کرده و سپس کلید Enter را فشار دهید"
+          value={searchText}
+          placeholder="لطفا عبارت مورد نظر خود را وارد نمایید ..."
+          onChange={(event) => setSearchText(event.target.value)}
           onKeyDown={(event) => {
             if (event.key === "Enter")
               if (
@@ -60,6 +61,19 @@ function App() {
               }
           }}
         />
+        {searchText ? (
+          <svg
+            focusable="false"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            id="crossIcon"
+            onClick={() => {
+              setSearchText("");
+            }}
+          >
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+          </svg>
+        ) : null}
       </div>
       {results.length == 0 ? (
         <div id="helperDiv" key="helperDiv">

@@ -29,12 +29,7 @@
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
-  /* border-bottom: 3px solid rgb(73, 134, 214); */
   transition: all 300ms ease-in-out;
-  /* background-image: url("assets/search.webp");
-  background-position: right;
-  background-size: 5%;
-  background-repeat: no-repeat; */
   border: 1px solid #dfe1e5;
   border-radius: 24px;
   box-shadow: 0 1px 2px rgba(32,33,36,.28);
@@ -44,8 +39,14 @@
   box-shadow: 0 1px 6px rgba(32,33,36,.28);
   outline: none;
   width: 65%;
-  /* padding-right: 4%;
-  background-size: 3%; */
+}
+
+#crossIcon{
+  width: 2%;
+  height: 2%;
+  margin-right: -3%;
+  fill: #70757a;
+  cursor: pointer;
 }
 
 .AutoCompleteContainer {
